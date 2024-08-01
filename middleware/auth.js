@@ -1,40 +1,48 @@
 const router = require("express").Router();
-const passport = require("passport");
-  
-router.get("/login/success", (req, res) => {
-	if (req.user) {
-		res.status(200).json({
-			error: false,
-			message: "Successfully Loged In",
-			user: req.user,
-		});
-	} else {
-		res.status(403).json({ error: true, message: "Not Authorized" });
-	}
-});
+const Webhook = require('svix')
+const User = require('../models/userModel')
+    
 
-router.get("/login/failed", (req, res) => {
-	res.status(401).json({
-		error: true,
-		message: "Log in failure",
-	});
-});
+ // Real code
+ router.post('/', async(req, res)=>{
+      try {
+        const payloadString = req.body.toString();
+        const svixHeaders = req.headers;
 
-router.get("/google", passport.authenticate("google", ["profile", "email"]));
+        const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
+        const evt = wh.verify(payloadString, svixHeaders);
+        const { id, ...attributes } = evt.data;
+        // Handle the webhooks
+        const eventType = evt.type;
+        if (eventType === 'user.created') {
+			console.log(`User ${id} was ${eventType}`);
+			console.log('attributes: ', attributes);
 
-router.get(
-	"/google/callback",
-	passport.authenticate("google", {
-		successRedirect: '/login/success',
-		failureRedirect: "/login/failed",
-	})
-);
+			const email = attributes.email;
+			const phone = attributes.phoneNumbers
 
-router.get("/logout", (req, res) => {
-	req.logout();
-	res.redirect('/login');
-});
-
-
+    	
+			const user = new User({
+				_id: new mongoose.Types.ObjectId(),
+				email,
+				country: '',
+				plan: 'free',
+				phone
+			})
+			console.log('User saved to database');
+			await user.save()
+		}
+        res.status(200).json({
+          success: true,
+          message: 'Webhook received',
+        });
+      } catch (err) {
+        res.status(400).json({
+          success: false,
+          message: err.message,
+        });
+      }
+    }
+  );
 
 module.exports = router;

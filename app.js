@@ -4,11 +4,9 @@ const userRoute = require('./routes/user')
 const auth = require('./middleware/auth')
 const receiptRoute = require('./routes/receipt')
 const express = require('express')
-const session = require('express-session')
 const passport = require('passport')
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
-const passportSetup = require('./passport')
 const app = express()
 
 
@@ -31,15 +29,14 @@ app.use(
     })
 )
 
-app.use(passport.initialize()) // init passport on every route call
-app.use(passport.session())    //allow passport to use "express-session"
-
 
 //avoid cors errors
 app.use(cors())
 
+
+
 // routes
-app.use('/auth', auth)
+app.use('/api/webhook', auth)
 app.use('/user', userRoute)
 app.use('/receipt', receiptRoute)
 
