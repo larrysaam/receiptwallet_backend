@@ -37,7 +37,7 @@ app.post(
             console.log(`User ${id} was ${eventType}`);
             console.log(attributes);
             const email = attributes.email_addresses[0].email_address;
-		    const phone = attributes.phone_numbers
+		    const phone = attributes.phone_numbers[0]
     	
 			const user = new User({
 				_id: new mongoose.Types.ObjectId(),
