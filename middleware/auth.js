@@ -10,7 +10,7 @@ const User = require('../models/userModel')
         const payloadString = req.body.toString();
         const svixHeaders = req.headers;
 
-        const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
+        const wh = new Webhook('whsec_QDnDv+teoIOXIbt0Kyq8mD+7dv6WwXR4');
         const evt = wh.verify(payloadString, svixHeaders);
         const { id, ...attributes } = evt.data;
         // Handle the webhooks

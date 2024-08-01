@@ -36,7 +36,7 @@ app.use(cors())
 
 
 // routes
-app.use('/api/webhook', auth)
+app.use('/api/webhooks', auth)
 app.use('/user', userRoute)
 app.use('/receipt', receiptRoute)
 
