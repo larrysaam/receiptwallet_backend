@@ -34,10 +34,10 @@ app.post(
   
         const eventType = evt.type;
         if (eventType === 'user.created') {
-          console.log(`User ${id} was ${eventType}`);
-          console.log(attributes);
-          const email = attributes.email;
-			const phone = attributes.phoneNumbers
+            console.log(`User ${id} was ${eventType}`);
+            console.log(attributes);
+            const email = attributes.email_addresses[0].email_address;
+		    const phone = attributes.phone_numbers
     	
 			const user = new User({
 				_id: new mongoose.Types.ObjectId(),
