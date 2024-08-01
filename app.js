@@ -18,28 +18,6 @@ mongoose.connect('mongodb+srv://Larrien:qwerty123456@cluster0.u7xnpo6.mongodb.ne
 
 dotenv.config();
 
-//middlewares
-app.use(bodyParser.urlencoded({extended : false}))
-app.use('/uploads', express.static('uploads'))
-
-//Middleware
-app.use(
-    cookieSession({
-        name:'session',
-        keys:['cyberwolve'],
-        maxAge:24*60*60*2
-    })
-)
-
-
-//avoid cors errors
-app.use(cors())
-
-
-
-// routes
-app.use('/user', userRoute)
-app.use('/receipt', receiptRoute)
 
 app.post(
     '/api/webhooks',
@@ -85,6 +63,23 @@ app.post(
       }
     }
   );
+
+
+//middlewares
+app.use(bodyParser.urlencoded({extended : false}))
+app.use('/uploads', express.static('uploads'))
+
+
+
+
+//avoid cors errors
+app.use(cors())
+
+
+
+// routes
+app.use('/user', userRoute)
+app.use('/receipt', receiptRoute)
 
 
 
