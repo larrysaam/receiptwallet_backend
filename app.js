@@ -48,7 +48,7 @@ app.post(
     async function (req, res) {
         
       try {
-        const payloadString = req.body;
+        const payloadString = req.body.toString();
         const svixHeaders = req.headers;
 
         const wh = new Webhook('whsec_QDnDv+teoIOXIbt0Kyq8mD+7dv6WwXR4');
