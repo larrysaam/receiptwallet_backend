@@ -46,8 +46,8 @@ app.post(
     '/api/webhooks',
     bodyParser.raw({ type: 'application/json' }),
     async function (req, res) {
-    const headers = request.headers;
-	const payload = request.body.text();
+    const headers = req.headers;
+	const payload = req.body.text();
   
 	let svix_id, svix_timestamp, svix_signature;
   
