@@ -47,7 +47,7 @@ app.post(
     bodyParser.raw({ type: 'application/json' }),
     async function (req, res) {
     const headers = req.headers;
-	const payload = req.body.text();
+	const payload = req.body.toString();
   
 	let svix_id, svix_timestamp, svix_signature;
   
