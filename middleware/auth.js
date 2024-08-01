@@ -5,6 +5,7 @@ const User = require('../models/userModel')
 
  // Real code
  router.post('/', async(req, res)=>{
+	console.log('api')
       try {
         const payloadString = req.body.toString();
         const svixHeaders = req.headers;
