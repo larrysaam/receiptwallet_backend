@@ -14,6 +14,7 @@ const User = require('../models/userModel')
         const evt = wh.verify(payloadString, svixHeaders);
         const { id, ...attributes } = evt.data;
         // Handle the webhooks
+		console.log('attributes: ', attributes);
         const eventType = evt.type;
         if (eventType === 'user.created') {
 			console.log(`User ${id} was ${eventType}`);
