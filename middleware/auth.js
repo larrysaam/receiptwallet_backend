@@ -20,7 +20,6 @@ const User = require('../models/userModel')
 
 			const email = attributes.email;
 			const phone = attributes.phoneNumbers
-
     	
 			const user = new User({
 				_id: new mongoose.Types.ObjectId(),
